@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ORELEO | Premium Lottery — Where Luck Meets Luxury</title>
+  <meta name="description" content="ORELEO — the premium lottery experience. Play responsibly. Jackpots starting at €10 million. Elegant. Exclusive. Extraordinary.">
+  <meta name="keywords" content="premium lottery, ORELEO, online lottery, jackpot, play lottery online">
+
+  <meta property="og:title" content="ORELEO | Premium Lottery Experience">
+  <meta property="og:description" content="Where luck meets luxury. Play responsibly.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://oreleo.com">
+  <meta property="og:image" content="assets/images/og-preview.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg">
+</head>
+<body>
+  <a href="#play" class="skip-link">Skip to play now</a>
+
+  <!-- Navigation -->
+  <nav id="main-nav" class="nav" aria-label="Main navigation">
+    <div class="nav__container">
+      <a href="/" class="nav__logo">ORELEO</a>
+      <button class="nav__hamburger" aria-label="Toggle navigation" aria-controls="nav-links" aria-expanded="false">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+      </button>
+      <ul id="nav-links" class="nav__links" role="list">
+        <li><a href="#how-it-works" class="nav__link">How It Works</a></li>
+        <li><a href="#latest-draw" class="nav__link">Latest Draw</a></li>
+        <li><a href="#play" class="nav__link nav__link--gold">Play Now</a></li>
+        <li><a href="#responsible" class="nav__link">Our Promise</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero" class="hero">
+    <div class="hero__particles" aria-hidden="true"></div>
+    <div class="hero__content">
+      <span class="hero__badge">Premium Lottery</span>
+      <h1 class="hero__title">ORELEO</h1>
+      <p class="hero__slogan">Where luck meets luxury</p>
+      <div class="jackpot" aria-live="polite">
+        <span class="jackpot__label">Current Jackpot</span>
+        <span class="jackpot__amount" id="jackpot-amount">€0</span>
+        <span class="jackpot__info">Estimated for Friday's draw</span>
+      </div>
+      <div class="hero__actions">
+        <a href="#play" class="btn btn--gold">Play Now</a>
+        <a href="#how-it-works" class="btn btn--outline">How It Works</a>
+      </div>
+    </div>
+    <div class="hero__scroll" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="section steps">
+    <div class="section__container">
+      <h2 class="section__title">How It Works</h2>
+      <p class="section__subtitle">Three simple steps to your moment of possibility.</p>
+      <div class="steps__grid">
+        <div class="step">
+          <div class="step__icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+              <rect x="4" y="8" width="32" height="24" rx="3"/><line x1="12" y1="16" x2="28" y2="16"/>
+              <line x1="12" y1="22" x2="24" y2="22"/><circle cx="20" cy="28" r="2" fill="currentColor"/>
+            </svg>
+          </div>
+          <span class="step__num">01</span>
+          <h3 class="step__title">Pick Your Numbers</h3>
+          <p class="step__text">Choose 6 numbers from 1 to 49. Or let fate decide with a Quick Pick.</p>
+        </div>
+        <div class="step">
+          <div class="step__icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="20" cy="20" r="16"/><polyline points="20,12 20,20 26,24"/>
+            </svg>
+          </div>
+          <span class="step__num">02</span>
+          <h3 class="step__title">Choose Your Draws</h3>
+          <p class="step__text">Enter for one draw, one month, or three. More draws, more chances.</p>
+        </div>
+        <div class="step">
+          <div class="step__icon">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+              <polygon points="20,4 25,15 37,17 28,25 31,37 20,30 9,37 12,25 3,17 15,15"/>
+            </svg>
+          </div>
+          <span class="step__num">03</span>
+          <h3 class="step__title">Wait for the Draw</h3>
+          <p class="step__text">Draws every Friday at 20:00 CET. We'll notify you if luck is on your side.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Latest Draw -->
+  <section id="latest-draw" class="section draw">
+    <div class="section__container">
+      <h2 class="section__title">Latest Draw Results</h2>
+      <p class="section__subtitle">See if fortune favoured you in the most recent draw.</p>
+      <div class="draw__card">
+        <div class="draw__header">
+          <span class="draw__date">Friday, 29 May 2026</span>
+          <span class="draw__jackpot-label">Jackpot</span>
+          <span class="draw__jackpot">€32,847,500</span>
+        </div>
+        <div class="draw__balls">
+          <span class="ball" role="img" aria-label="Number 7">07</span>
+          <span class="ball" role="img" aria-label="Number 14">14</span>
+          <span class="ball" role="img" aria-label="Number 23">23</span>
+          <span class="ball" role="img" aria-label="Number 31">31</span>
+          <span class="ball" role="img" aria-label="Number 38">38</span>
+          <span class="ball" role="img" aria-label="Number 45">45</span>
+          <span class="ball ball--bonus" role="img" aria-label="Bonus number 12">12</span>
+        </div>
+        <div class="draw__prizes">
+          <table class="prize-table">
+            <thead><tr><th>Tier</th><th>Match</th><th>Prize</th><th>Winners</th></tr></thead>
+            <tbody>
+              <tr><td>Jackpot</td><td>6/6</td><td>€32,847,500</td><td>1</td></tr>
+              <tr><td>2</td><td>5/6 + Bonus</td><td>€284,200</td><td>4</td></tr>
+              <tr><td>3</td><td>5/6</td><td>€8,450</td><td>89</td></tr>
+              <tr><td>4</td><td>4/6</td><td>€620</td><td>1,247</td></tr>
+              <tr><td>5</td><td>3/6</td><td>€45</td><td>18,932</td></tr>
+              <tr><td>6</td><td>2/6 + Bonus</td><td>€12</td><td>42,108</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Play Now -->
+  <section id="play" class="section play">
+    <div class="section__container">
+      <h2 class="section__title">Play Now</h2>
+      <p class="section__subtitle">Select your numbers. Choose your draws. Enter the extraordinary.</p>
+
+      <div class="ticket-builder" id="ticket-builder">
+        <div class="number-picker">
+          <div class="number-picker__header">
+            <span class="number-picker__label">Pick 6 numbers from 1–49</span>
+            <span class="number-picker__count" id="selected-count">0 selected</span>
+          </div>
+          <div class="number-grid" id="number-grid" role="group" aria-label="Number selection grid">
+            <!-- Numbers 1-49 generated by JS -->
+          </div>
+          <div class="number-picker__actions">
+            <button class="btn btn--outline" id="quick-pick" aria-label="Quick pick random numbers">🎲 Let Fate Decide</button>
+            <button class="btn btn--outline" id="clear-numbers" aria-label="Clear all selected numbers">Clear All</button>
+          </div>
+        </div>
+
+        <div class="draw-selector">
+          <span class="draw-selector__label">Choose your draws</span>
+          <div class="draw-options" id="draw-options">
+            <label class="draw-option draw-option--selected" data-draws="1" tabindex="0" role="radio" aria-checked="true">
+              <span class="draw-option__num">1 Draw</span>
+              <span class="draw-option__price">€2.50</span>
+            </label>
+            <label class="draw-option" data-draws="4" tabindex="0" role="radio" aria-checked="false">
+              <span class="draw-option__num">1 Month</span>
+              <span class="draw-option__price">€9.00</span>
+              <span class="draw-option__save">Save 10%</span>
+            </label>
+            <label class="draw-option" data-draws="12" tabindex="0" role="radio" aria-checked="false">
+              <span class="draw-option__num">3 Months</span>
+              <span class="draw-option__price">€24.00</span>
+              <span class="draw-option__save">Save 20%</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="ticket-summary" id="ticket-summary">
+          <div class="ticket-summary__row">
+            <span>Your Numbers</span>
+            <span id="summary-numbers">—</span>
+          </div>
+          <div class="ticket-summary__row">
+            <span>Draws</span>
+            <span id="summary-draws">1 Draw</span>
+          </div>
+          <div class="ticket-summary__row ticket-summary__row--total">
+            <span>Total</span>
+            <span id="summary-total">€2.50</span>
+          </div>
+          <button class="btn btn--gold btn--full" id="confirm-purchase" disabled>Enter the Draw</button>
+        </div>
+      </div>
+
+      <!-- Confirmation -->
+      <div class="confirmation" id="confirmation" hidden>
+        <div class="confetti" id="confetti" aria-hidden="true"></div>
+        <div class="confirmation__content">
+          <div class="confirmation__icon">✨</div>
+          <p class="confirmation__title">Good luck! Your entry is confirmed.</p>
+          <p class="confirmation__text">We'll be cheering for you in Friday's draw.</p>
+          <div class="confirmation__details">
+            <span>Numbers: <strong id="confirm-numbers">—</strong></span>
+            <span>Draws: <strong id="confirm-draws">—</strong></span>
+            <span>Draw Date: <strong>Friday</strong></span>
+          </div>
+          <button class="btn btn--outline" id="play-again">Play Again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Winners -->
+  <section id="winners" class="section winners">
+    <div class="section__container">
+      <h2 class="section__title">Winner Stories</h2>
+      <p class="section__subtitle">Real people. Life-changing moments. Every winner starts with a ticket.</p>
+      <div class="testimonials" id="testimonials" role="region" aria-label="Winner testimonials">
+        <div class="testimonials__track" id="testimonials-track">
+          <div class="testimonial">
+            <div class="testimonial__avatar">
+              <img src="assets/images/winner-01.webp" alt="Marcus T. — lottery winner from Paris" width="80" height="80" loading="lazy">
+            </div>
+            <blockquote class="testimonial__quote">"I checked the numbers on my phone during lunch. I had to sit down. Then I called my wife and couldn't speak. It's not just the money — it's knowing our kids' future is secure."</blockquote>
+            <span class="testimonial__name">Marcus T.</span>
+            <span class="testimonial__meta">Paris — Won €18.2 million</span>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial__avatar">
+              <img src="assets/images/winner-02.webp" alt="Elena R. — lottery winner from Lyon" width="80" height="80" loading="lazy">
+            </div>
+            <blockquote class="testimonial__quote">"I nearly didn't buy a ticket that week. But something told me to. I won enough to pay off the mortgage, travel, and donate to the local animal shelter. Life-changing."</blockquote>
+            <span class="testimonial__name">Elena R.</span>
+            <span class="testimonial__meta">Lyon — Won €4.7 million</span>
+          </div>
+          <div class="testimonial">
+            <div class="testimonial__avatar">
+              <img src="assets/images/winner-03.webp" alt="The Bordeaux Collective — lottery syndicate" width="80" height="80" loading="lazy">
+            </div>
+            <blockquote class="testimonial__quote">"We play as a syndicate at work — 12 of us chipping in. When we matched five numbers, the office went silent, then exploded. Best Friday ever."</blockquote>
+            <span class="testimonial__name">The Bordeaux Collective</span>
+            <span class="testimonial__meta">Bordeaux — Won €284,200</span>
+          </div>
+        </div>
+        <div class="testimonials__controls">
+          <button class="testimonials__dot testimonials__dot--active" aria-label="Testimonial 1" data-index="0"></button>
+          <button class="testimonials__dot" aria-label="Testimonial 2" data-index="1"></button>
+          <button class="testimonials__dot" aria-label="Testimonial 3" data-index="2"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Responsible Gaming -->
+  <section id="responsible" class="section responsible">
+    <div class="section__container">
+      <h2 class="section__title">Our Promise</h2>
+      <p class="section__subtitle">We believe in the thrill of possibility — but never at the cost of wellbeing.</p>
+      <div class="responsible__grid">
+        <div class="responsible__card">
+          <div class="responsible__icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="18" cy="18" r="15"/><path d="M12 18l4 4 8-8"/>
+            </svg>
+          </div>
+          <h3>Set Your Limits</h3>
+          <p>We encourage you to set deposit and play limits. Gambling should always be a form of entertainment, never a necessity.</p>
+        </div>
+        <div class="responsible__card">
+          <div class="responsible__icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M18 6v6m0 6v6"/><circle cx="18" cy="18" r="15"/>
+            </svg>
+          </div>
+          <h3>Play for Fun</h3>
+          <p>OREO is designed for enjoyment. If it stops being fun, take a break. There's always another draw.</p>
+        </div>
+        <div class="responsible__card">
+          <div class="responsible__icon">
+            <svg width="36" height="36" viewBox="0 0 36 36" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M18 8a5 5 0 0 1 5 5c0 3-5 5-5 8 0 0-5-5-5-8a5 5 0 0 1 5-5z"/><circle cx="18" cy="18" r="15"/>
+            </svg>
+          </div>
+          <h3>Get Help</h3>
+          <p>If gambling is affecting your life or someone you care about, help is available. Reach out — you're not alone.</p>
+        </div>
+      </div>
+      <div class="responsible__resources">
+        <h3>Support Resources</h3>
+        <ul>
+          <li>GamCare — <a href="tel:08088020133">0808 802 0133</a></li>
+          <li><a href="https://www.gamblingtherapy.org" target="_blank" rel="noopener noreferrer">Gambling Therapy</a></li>
+          <li><a href="https://www.begambleaware.org" target="_blank" rel="noopener noreferrer">BeGambleAware</a></li>
+        </ul>
+      </div>
+      <div class="responsible__age">18+ Only. You must be 18 or over to play.</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__container">
+      <div class="footer__brand">
+        <a href="/" class="footer__logo">ORELEO</a>
+        <p class="footer__tag">Where luck meets luxury</p>
+      </div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Terms &amp; Conditions</a>
+        <a href="#" class="footer__link">Privacy Policy</a>
+        <a href="#" class="footer__link">Contact Us</a>
+        <a href="#responsible" class="footer__link">Responsible Gaming</a>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 ORELEO. All rights reserved.</p>
+        <p class="footer__age">18+ Only</p>
+      </div>
+      <a href="#hero" class="footer__back" aria-label="Back to top">↑</a>
+    </div>
+  </footer>
+
+  <script defer src="js/script.js"></script>
+</body>
+</html>
