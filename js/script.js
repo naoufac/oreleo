@@ -1,6 +1,6 @@
 /**
- * ORELEO — Premium Lottery Experience
- * Vanilla JS. Progressive enhancement.
+ * ORELEO — For the hope of it.
+ * Progressive enhancement. No dependencies.
  */
 
 (function () {
@@ -20,20 +20,16 @@
   const summaryDraws = document.getElementById('summary-draws');
   const summaryTotal = document.getElementById('summary-total');
   const confirmBtn = document.getElementById('confirm-purchase');
-  const ticketBuilder = document.getElementById('ticket-builder');
-  const confirmation = document.getElementById('confirmation');
-  const confirmNumbers = document.getElementById('confirm-numbers');
-  const confirmDraws = document.getElementById('confirm-draws');
+  const ticket = document.getElementById('ticket');
+  const confirm = document.getElementById('confirm');
+  const confirmDetails = document.getElementById('confirm-details');
   const playAgainBtn = document.getElementById('play-again');
-  const testimonialsTrack = document.getElementById('testimonials-track');
-  const dots = document.querySelectorAll('.testimonials__dot');
 
-  const COST_PER_DRAW = 2.50;
-  let selectedNumbers = [];
-  let selectedDraws = 1;
-  let testimonialIndex = 0;
+  const COST = 2.50;
+  let selected = [];
+  let draws = 1;
 
-  // ====== Mobile nav ======
+  // ====== Nav ======
   const overlay = document.createElement('div');
   overlay.className = 'nav__overlay';
 
@@ -47,61 +43,30 @@
     hamburger.addEventListener('click', function () {
       toggleMenu(!navLinks.classList.contains('nav__links--open'));
     });
-  }
-  overlay.addEventListener('click', function () { toggleMenu(false); });
-  nav.parentNode.insertBefore(overlay, nav.nextSibling);
-
-  navLinks.querySelectorAll('.nav__link').forEach(function (link) {
-    link.addEventListener('click', function () {
-      if (window.innerWidth < 768) toggleMenu(false);
+    nav.parentNode.insertBefore(overlay, nav.nextSibling);
+    overlay.addEventListener('click', function () { toggleMenu(false); });
+    navLinks.querySelectorAll('.nav__link').forEach(function (link) {
+      link.addEventListener('click', function () { if (window.innerWidth < 768) toggleMenu(false); });
     });
-  });
+  }
 
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape' && navLinks.classList.contains('nav__links--open')) toggleMenu(false);
   });
 
-  // ====== Sticky nav ======
-  function handleNavScroll() {
-    nav.classList.toggle('nav--scrolled', window.scrollY > 80);
+  // ====== Nav scroll ======
+  function onScroll() {
+    nav.classList.toggle('nav--scrolled', window.scrollY > 40);
   }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
 
-  // ====== Active nav link ======
-  function updateActiveNavLink() {
-    const sections = document.querySelectorAll('section[id]');
-    const links = document.querySelectorAll('.nav__link:not(.nav__link--gold)');
-    let current = '';
-    sections.forEach(function (s) {
-      const top = s.offsetTop - 120;
-      const bottom = top + s.offsetHeight;
-      if (window.scrollY >= top && window.scrollY < bottom) current = s.id;
-    });
-    links.forEach(function (l) {
-      l.classList.toggle('nav__link--active', l.getAttribute('href') === '#' + current);
-    });
-  }
-
-  // ====== Jackpot counter animation ======
-  function animateJackpot(target) {
-    if (!jackpotEl) return;
-    // Convert €47,382,910 to a number
-    const cleanTarget = typeof target === 'number' ? target : 47382910;
-    const duration = 2000;
-    const startTime = performance.now();
-
-    function update(currentTime) {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3); // ease-out cubic
-      const current = Math.floor(eased * cleanTarget);
-      jackpotEl.textContent = '€' + current.toLocaleString('en-US');
-      if (progress < 1) requestAnimationFrame(update);
-    }
-    requestAnimationFrame(update);
-  }
+  // ====== Jackpot — no animation, just static confidence ======
+  // The number is already in the HTML. No count-up. No gimmick.
+  // It sits there quietly. Like it belongs.
 
   // ====== Number grid ======
-  function buildNumberGrid() {
+  function buildGrid() {
     if (!numberGrid) return;
     for (let i = 1; i <= 49; i++) {
       const btn = document.createElement('button');
@@ -109,62 +74,53 @@
       btn.textContent = String(i).padStart(2, '0');
       btn.dataset.num = i;
       btn.setAttribute('aria-label', 'Number ' + i);
-      btn.addEventListener('click', function () { toggleNumber(i); });
+      btn.addEventListener('click', function () { toggle(i); });
       numberGrid.appendChild(btn);
     }
   }
 
-  function toggleNumber(num) {
-    const idx = selectedNumbers.indexOf(num);
+  function toggle(num) {
+    const idx = selected.indexOf(num);
     if (idx > -1) {
-      selectedNumbers.splice(idx, 1);
-    } else if (selectedNumbers.length < 6) {
-      selectedNumbers.push(num);
+      selected.splice(idx, 1);
+    } else if (selected.length < 6) {
+      selected.push(num);
     } else {
-      // Already 6 selected — can't add more
       return;
     }
-    updateGridUI();
-    updateSummary();
+    updateUI();
   }
 
-  function updateGridUI() {
-    const btns = numberGrid.querySelectorAll('.num-btn');
-    btns.forEach(function (btn) {
-      const num = parseInt(btn.dataset.num);
-      btn.classList.toggle('num-btn--selected', selectedNumbers.includes(num));
+  function updateUI() {
+    numberGrid.querySelectorAll('.num-btn').forEach(function (btn) {
+      btn.classList.toggle('num-btn--selected', selected.includes(parseInt(btn.dataset.num)));
     });
-    if (selectedCount) selectedCount.textContent = selectedNumbers.length + ' selected';
-    updateConfirmButton();
+    if (selectedCount) selectedCount.textContent = selected.length + ' / 6 selected';
+    updateSummary();
   }
 
   function quickPick() {
-    selectedNumbers = [];
-    const nums = new Set();
-    while (nums.size < 6) {
-      nums.add(Math.floor(Math.random() * 49) + 1);
+    selected = [];
+    while (selected.length < 6) {
+      const n = Math.floor(Math.random() * 49) + 1;
+      if (!selected.includes(n)) selected.push(n);
     }
-    selectedNumbers = Array.from(nums).sort(function (a, b) { return a - b; });
-    updateGridUI();
-    updateSummary();
+    selected.sort(function (a, b) { return a - b; });
+    updateUI();
   }
 
-  function clearSelection() {
-    selectedNumbers = [];
-    updateGridUI();
-    updateSummary();
-  }
+  function clearSelection() { selected = []; updateUI(); }
 
   // ====== Draw selector ======
-  drawOptions.querySelectorAll('.draw-option').forEach(function (opt) {
+  drawOptions.querySelectorAll('.draw-opt').forEach(function (opt) {
     opt.addEventListener('click', function () {
-      drawOptions.querySelectorAll('.draw-option').forEach(function (o) {
-        o.classList.remove('draw-option--selected');
+      drawOptions.querySelectorAll('.draw-opt').forEach(function (o) {
+        o.classList.remove('draw-opt--active');
         o.setAttribute('aria-checked', 'false');
       });
-      this.classList.add('draw-option--selected');
+      this.classList.add('draw-opt--active');
       this.setAttribute('aria-checked', 'true');
-      selectedDraws = parseInt(this.dataset.draws);
+      draws = parseInt(this.dataset.draws);
       updateSummary();
     });
   });
@@ -172,178 +128,83 @@
   // ====== Summary ======
   function updateSummary() {
     if (summaryNumbers) {
-      summaryNumbers.textContent = selectedNumbers.length === 6
-        ? selectedNumbers.join(', ')
-        : selectedNumbers.length + '/6 selected';
+      summaryNumbers.textContent = selected.length === 6 ? selected.join(', ') : selected.length + ' / 6';
     }
-    if (summaryDraws) summaryDraws.textContent = selectedDraws + ' Draw' + (selectedDraws > 1 ? 's' : '');
-    if (summaryTotal) summaryTotal.textContent = '€' + (selectedDraws * COST_PER_DRAW).toFixed(2);
-    updateConfirmButton();
-  }
-
-  function updateConfirmButton() {
-    if (!confirmBtn) return;
-    confirmBtn.disabled = selectedNumbers.length !== 6;
-  }
-
-  // ====== Purchase flow ======
-  function confirmPurchase() {
-    if (selectedNumbers.length !== 6) return;
-    if (confirmNumbers) confirmNumbers.textContent = selectedNumbers.join(', ');
-    if (confirmDraws) confirmDraws.textContent = selectedDraws + ' Draw' + (selectedDraws > 1 ? 's' : '');
-    ticketBuilder.style.display = 'none';
-    confirmation.removeAttribute('hidden');
-    // Confetti!
-    createConfetti();
-    // Scroll to confirmation
-    confirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  function createConfetti() {
-    const container = document.getElementById('confetti');
-    if (!container) return;
-    const colors = ['#d4a843', '#f0d68a', '#a67c2e', '#6b2d3e', '#f5f0e8'];
-    for (let i = 0; i < 60; i++) {
-      const piece = document.createElement('div');
-      piece.className = 'confetti__piece';
-      piece.style.left = (Math.random() * 100) + '%';
-      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
-      piece.style.width = (4 + Math.random() * 6) + 'px';
-      piece.style.height = (4 + Math.random() * 6) + 'px';
-      piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
-      piece.style.animationDuration = (1.5 + Math.random() * 1.5) + 's';
-      piece.style.animationDelay = (Math.random() * 0.5) + 's';
-      container.appendChild(piece);
-      // Remove after animation
-      setTimeout(function () { piece.remove(); }, 3000);
+    if (summaryDraws) summaryDraws.textContent = draws;
+    if (summaryTotal) {
+      const total = (draws * COST).toFixed(2);
+      summaryTotal.textContent = '€' + total;
     }
+    if (confirmBtn) confirmBtn.disabled = selected.length !== 6;
+  }
+
+  // ====== Purchase ======
+  function purchase() {
+    if (selected.length !== 6) return;
+    const nums = selected.join(', ');
+    const d = draws;
+    const total = (d * COST).toFixed(2);
+    if (confirmDetails) {
+      confirmDetails.innerHTML =
+        '<span>Numbers: <strong>' + nums + '</strong></span>' +
+        '<span>Draws: <strong>' + d + '</strong></span>' +
+        '<span>Total: <strong>€' + total + '</strong></span>';
+    }
+    ticket.style.display = 'none';
+    confirm.removeAttribute('hidden');
+    confirm.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   function resetPlay() {
-    selectedNumbers = [];
-    selectedDraws = 1;
-    updateGridUI();
-    updateSummary();
-    ticketBuilder.style.display = 'block';
-    confirmation.setAttribute('hidden', '');
+    selected = [];
+    draws = 1;
+    updateUI();
+    ticket.style.display = 'block';
+    confirm.setAttribute('hidden', '');
     // Reset draw selector
-    drawOptions.querySelectorAll('.draw-option').forEach(function (o) {
-      o.classList.remove('draw-option--selected');
+    drawOptions.querySelectorAll('.draw-opt').forEach(function (o) {
+      o.classList.remove('draw-opt--active');
       o.setAttribute('aria-checked', 'false');
     });
-    drawOptions.querySelector('.draw-option').classList.add('draw-option--selected');
-    drawOptions.querySelector('.draw-option').setAttribute('aria-checked', 'true');
+    drawOptions.querySelector('.draw-opt').classList.add('draw-opt--active');
+    drawOptions.querySelector('.draw-opt').setAttribute('aria-checked', 'true');
   }
 
-  // ====== Testimonials carousel ======
-  function goToTestimonial(index) {
-    if (!testimonialsTrack) return;
-    testimonialIndex = index;
-    testimonialsTrack.style.transform = 'translateX(-' + (index * 100) + '%)';
-    dots.forEach(function (dot, i) {
-      dot.classList.toggle('testimonials__dot--active', i === index);
-    });
-  }
-
-  dots.forEach(function (dot) {
-    dot.addEventListener('click', function () {
-      goToTestimonial(parseInt(this.dataset.index));
-    });
-  });
-
-  // Auto-advance testimonials every 6 seconds
-  let testimonialInterval = setInterval(function () {
-    testimonialIndex = (testimonialIndex + 1) % dots.length;
-    goToTestimonial(testimonialIndex);
-  }, 6000);
-
-  // Pause on hover
-  const testimonialsRegion = document.getElementById('testimonials');
-  if (testimonialsRegion) {
-    testimonialsRegion.addEventListener('mouseenter', function () { clearInterval(testimonialInterval); });
-    testimonialsRegion.addEventListener('mouseleave', function () {
-      testimonialInterval = setInterval(function () {
-        testimonialIndex = (testimonialIndex + 1) % dots.length;
-        goToTestimonial(testimonialIndex);
-      }, 6000);
-    });
-  }
-
-  // ====== Scroll animations (fade-in sections) ======
-  function initScrollAnimations() {
-    const sections = document.querySelectorAll('.section');
-    if (!('IntersectionObserver' in window)) {
-      sections.forEach(function (s) { s.style.opacity = '1'; });
-      return;
-    }
-    const observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('fade-in--visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(function (s, i) {
-      s.classList.add('fade-in');
-      s.style.transitionDelay = (i * 0.1) + 's';
-      observer.observe(s);
-    });
-  }
-
-  // ====== Smooth scroll for anchors ======
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      const targetId = this.getAttribute('href');
-      if (targetId === '#') return;
-      const target = document.querySelector(targetId);
+  // ====== Smooth scroll ======
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      const id = this.getAttribute('href');
+      if (id === '#') return;
+      const target = document.querySelector(id);
       if (!target) return;
       e.preventDefault();
       target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
-  // ====== Event listeners ======
+  // ====== Events ======
   if (quickPickBtn) quickPickBtn.addEventListener('click', quickPick);
   if (clearBtn) clearBtn.addEventListener('click', clearSelection);
-  if (confirmBtn) confirmBtn.addEventListener('click', confirmPurchase);
+  if (confirmBtn) confirmBtn.addEventListener('click', purchase);
   if (playAgainBtn) playAgainBtn.addEventListener('click', resetPlay);
 
-  // Keyboard nav for draw options
-  drawOptions.querySelectorAll('.draw-option').forEach(function (opt) {
+  drawOptions.querySelectorAll('.draw-opt').forEach(function (opt) {
     opt.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); this.click(); }
     });
   });
 
-  // ====== Scroll handler ======
-  let ticking = false;
-  window.addEventListener('scroll', function () {
-    if (!ticking) {
-      requestAnimationFrame(function () {
-        handleNavScroll();
-        updateActiveNavLink();
-        ticking = false;
-      });
-      ticking = true;
-    }
-  }, { passive: true });
-
-  // ====== Init ======
-  buildNumberGrid();
-  animateJackpot(47382910);
-  updateSummary();
-  handleNavScroll();
-  updateActiveNavLink();
-  initScrollAnimations();
-
-  // Handle resize for mobile menu
+  // ====== Resize ======
   window.addEventListener('resize', function () {
     if (window.innerWidth >= 768 && navLinks.classList.contains('nav__links--open')) {
       toggleMenu(false);
     }
   });
 
-  console.log('✨ ORELEO — Where luck meets luxury');
+  // ====== Init ======
+  buildGrid();
+  updateSummary();
+  onScroll();
+
+  console.log('ORELEO — For the hope of it.');
 })();
